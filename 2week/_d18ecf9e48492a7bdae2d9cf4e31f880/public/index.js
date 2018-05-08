@@ -1,46 +1,52 @@
 // Телефонная книга
-var phoneBook = {
-
-};
+var phoneBook = {};
 
 /**
  * @param {String} command
  * @returns {*} - результат зависит от команды
  */
-//module.exports =
-function test(command) {
+module.exports =  function (command) {
+        var arrayCommand = command.split(' ');
+        var arrayPhoneBook = [];
+        var commandName = arrayCommand.shift();
+        var NAME = 0;
 
-    var arrayCommand = command.split(' ');
-    var commandName = arrayCommand.shift();
-    var name = 0;
-    var phone = 1;
+        if (commandName === 'ADD'){
+            if(!phoneBook.hasOwnProperty(arrayCommand[NAME])) {
+                phoneBook[arrayCommand.shift()] = arrayCommand.shift();
+            }else{
+                phoneBook[arrayCommand.shift()] += ',' + arrayCommand.shift();
+            }
+        } else if (commandName === 'REMOVE_PHONE'){
+            var phoneToRemove = arrayCommand.shift();
+            var names = Object.keys(phoneBook);
+            var removed = false;
 
-    if (commandName === 'ADD'){
-        if(!phoneBook.hasOwnProperty(arrayCommand[name])) {
-            phoneBook[arrayCommand.shift()] = arrayCommand.shift();
-        }else{
-            phoneBook[arrayCommand.shift()] += ',' + arrayCommand.shift();
+            for (var i = 0; i < names.length; i++) {
+                var key = names[i];
+                if(phoneBook[key].includes(phoneToRemove)){
+                    removed = true;
+                    phoneBook[key] = phoneBook[key].split(',').filter( function (element) {
+                        return element !== phoneToRemove}).join(', ');
+                }
+                if(phoneBook[key].length == 0){
+                    delete phoneBook[key];
+
+                }
+            }
+            return removed;
+        } else if (commandName === 'SHOW'){
+            var names = Object.keys(phoneBook);
+
+            if(names) {
+                for (var i = 0; i < names.length; i++) {
+                    var key = names[i];
+                    var value = phoneBook[key].split(',').join(', ');
+                    arrayPhoneBook.push(key + ': ' + value);
+                }
+                return arrayPhoneBook.sort();
+            }
+            else return false;
+
         }
-    } else if (commandName === 'REMOVE_PHONE'){
-
-
-
-
-    } else if (commandName === 'SHOW'){
-
-        
-
-    } else return false;
-
-
-    console.log(str);
-};
-
-
-
-test('ADD Lena 545-10-02')
-test('ADD Ivan 555-10-01,555-10-03')
-test('ADD Ivan 555-10-02')
-test('ADD Ken 535-10-02')
-test('SHOW')
-//test('REMOVE_PHONE 555-20-01')
+    };
