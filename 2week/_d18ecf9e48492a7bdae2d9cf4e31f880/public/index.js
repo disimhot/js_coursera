@@ -24,7 +24,7 @@ module.exports =  function (command) {
 
             for (var i = 0; i < names.length; i++) {
                 var key = names[i];
-                if(phoneBook[key].includes(phoneToRemove)){
+                if(phoneBook[key].split(',').includes(phoneToRemove)){
                     removed = true;
                     phoneBook[key] = phoneBook[key].split(',').filter( function (element) {
                         return element !== phoneToRemove}).join(', ');

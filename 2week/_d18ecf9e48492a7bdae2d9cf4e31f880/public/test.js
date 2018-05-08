@@ -32,7 +32,8 @@ function test(command) {
 
         for (var i = 0; i < names.length; i++) {
             var key = names[i];
-            if(phoneBook[key].includes(phoneToRemove)){
+            if(phoneBook[key].split(',').includes(phoneToRemove)){
+                console.log(phoneBook[key])
                 removed = true;
                 phoneBook[key] = phoneBook[key].split(',').filter( function (element) {
                         return element !== phoneToRemove}).join(', ');
@@ -54,13 +55,19 @@ function test(command) {
                 var value = phoneBook[key].split(',').join(', ');
                 arrayPhoneBook.push(key + ': ' + value);
             }
-            console.log(arrayPhoneBook.sort())
+            console.log(arrayPhoneBook.sort());
             return arrayPhoneBook.sort();
         }
         else return false;
 
     }
 };
+
+
+test('ADD Ivan 555,666');
+test('SHOW')
+console.log(test('REMOVE_PHONE 66'))
+test('SHOW')
 
 
 
@@ -75,7 +82,7 @@ test('SHOW');
 console.log(test('REMOVE_PHONE 555-20-01'));
 test('SHOW');
 
-console.log(test('REMOVE_PHONE 545-20-01'));
+/*console.log(test('REMOVE_PHONE 545-20-01'));
 test('SHOW');
 
 function testTest() {
@@ -84,3 +91,4 @@ function testTest() {
     delete book[user];
     console.log(book);
 }
+*/
