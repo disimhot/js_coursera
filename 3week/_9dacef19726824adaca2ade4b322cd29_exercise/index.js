@@ -5,23 +5,27 @@
 //module.exports =
 //var time = date('2017-05-16 13:45')
 
-function parseDate(number, unit){
+function mayParseDate(number, unit){
     var units = ['years', 'months', 'days', 'hours', 'minutes'];
+    try {
         if (number > 0 && (units.includes(unit))) {
-            return number, unit;
+            return true;
         } else {
-    try{
             throw new TypeError();
+        }
     }catch (e){
         console.log('Данные некоррекны');
+        return false;
     }
-        }
 }
 
 
 function add(number, unit) {
-    parseDate(number, unit);
-    console.log(number, unit);
+    if(mayParseDate(number, unit)) {
+
+
+        console.log(number, unit);
+    }
 }
 
 
@@ -31,12 +35,13 @@ function subtract(number, unit) {
 
 function test(date) {
     var castedDate = new Date(date);
+    console.log(castedDate);
 
-    console.log(castedDate)
+
 };
 
 
 var time = '2017-05-16 13:45';
 test(time);
 
-add(2,'iuhyku');
+mayParseDate(-5,'years');
